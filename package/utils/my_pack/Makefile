@@ -13,11 +13,11 @@ include $(INCLUDE_DIR)/package.mk
 define Package/my_pack
 	SECTION:=utils
 	CATEGORY:=Utilities
-	TITLE:=my hello package for pi zero w from dev1
+	TITLE:=my hello package for pi zero w
 endef
 
 define Build/Prepare
-	echo "============Prepare from Tuan Truong"
+	echo "============Prepare for my_pack"
 	rm -rf $(PKG_BUILD_DIR)
 	mkdir -p $(PKG_BUILD_DIR)
 	tar -xf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components=1
@@ -38,10 +38,11 @@ define Package/my_pack/description
 endef
  
 define Build/Install
-	echo "================Build/Install test======================"
+	echo "================Build/Install for my_pack"
 endef
 
 define Package/my_pack/install
+	echo "================Package/install for my_pack"
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/hello $(1)/usr/bin
 endef
