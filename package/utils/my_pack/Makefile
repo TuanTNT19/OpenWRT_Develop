@@ -16,6 +16,10 @@ define Package/my_pack
 	TITLE:=my hello package for pi zero w
 endef
 
+define Package/my_pack/description
+	Hello package from my git
+endef
+
 define Build/Prepare
 	echo "============Prepare for my_pack"
 	rm -rf $(PKG_BUILD_DIR)
@@ -31,10 +35,6 @@ define Build/Compile
 	echo "===========Compile for my_pack"
 	cd $(PKG_BUILD_DIR) && \
 	$(TOOLCHAIN_DIR)/arm-openwrt-linux-gcc $(PKG_BUILD_DIR)/hello.c -o hello
-endef
-
-define Package/my_pack/description
-	Hello package from my git
 endef
  
 define Build/Install
