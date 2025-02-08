@@ -27,12 +27,8 @@ define Build/Prepare
 	tar -xf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components=1
 endef
 
-define Build/Configure
-	echo "=============Configure for hello"
-endef
-
 define Build/Compile
-	echo "==========Compile========"
+	echo "==========Compile for hello"
 	$(call Build/Compile/Default)
 endef
 
