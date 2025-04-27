@@ -5,7 +5,7 @@ PKG_VERSION:=1.0
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://github.com/TuanTNT19/Pi4_Application.git
-PKG_SOURCE_VERSION:=31846e8
+PKG_SOURCE_VERSION:=a86ebba
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -21,18 +21,14 @@ define Package/pi4_app/description
 endef
 
 define Build/Prepare
-	echo "============Prepare for GPIO23 Led Application========="
 	$(call Build/Prepare/Default)
 endef
 
 define Build/Compile
-	echo "==========Compile for GPIO23 Led Application =============="
 	$(call Build/Compile/Default)
-	echo "==========End for GPIO23 Led Application OK??=============="
 endef
 
 define Package/pi4_app/install
-	echo "================Package/install for GPIO23 Led Application ======="
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/main $(1)/usr/bin
 endef
