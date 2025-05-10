@@ -1,0 +1,60 @@
+From 1698705da87a849a3afb55922546b377e0113a52 Mon Sep 17 00:00:00 2001
+From: TuanTNT19 <tuantnt08@gmail.com>
+Date: Sat, 10 May 2025 20:41:15 +0700
+Subject: [PATCH] test 2
+
+---
+ .../arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts | 38 +++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+
+diff --git a/build_dir/target-aarch64_cortex-a72_musl/linux-bcm27xx_bcm2711/linux-6.6.61/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts b/build_dir/target-aarch64_cortex-a72_musl/linux-bcm27xx_bcm2711/linux-6.6.61/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
+index 7608651f82..17eb346084 100644
+--- a/build_dir/target-aarch64_cortex-a72_musl/linux-bcm27xx_bcm2711/linux-6.6.61/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
++++ b/build_dir/target-aarch64_cortex-a72_musl/linux-bcm27xx_bcm2711/linux-6.6.61/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
+@@ -481,4 +481,42 @@ my-leds {
+         led23-gpios = <&gpio 23 GPIO_ACTIVE_HIGH>;
+         default-state = "off";
+     };
++};
++
++&spi0 {
++    status = "okay";
++    #address-cells = <1>;
++    #size-cells = <0>;
++    pinctrl-names = "default";
++    pinctrl-0 = <&spi0_pins &spi0_cs_pins>;
++    cs-gpios = <&gpio 8 GPIO_ACTIVE_LOW>;
++
++	spidev@0 {
++        compatible = "spidev";
++        reg = <0>;
++        status = "disabled"; // Tắt spidev@0 để nhường CS0
++    };
++
++    spidev@1 {
++        compatible = "spidev";
++        reg = <1>;
++        status = "disabled"; 
++    };
++
++    tuantn_display: tuantn-display@0 {
++        compatible = "ilitek,ili9341";
++        reg = <0>;
++        spi-max-frequency = <20000000>;
++        width = <240>;
++        height = <320>;
++        regwidth = <8>;
++        rotate = <180>;
++        fps = <30>;
++        buswidth = <8>;
++        reset-gpios = <&gpio 17 GPIO_ACTIVE_LOW>;
++        dc-gpios = <&gpio 27 GPIO_ACTIVE_HIGH>;
++        led-gpios = <&gpio 22 GPIO_ACTIVE_HIGH>;
++        bgr;
++        status = "okay";
++    };
+ };
+\ No newline at end of file
+-- 
+2.25.1
+

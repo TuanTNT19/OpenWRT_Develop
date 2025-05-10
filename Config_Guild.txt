@@ -1,0 +1,88 @@
+1. Framebuffer Support
+
+    Tại sao: FBTFT dựa trên framework framebuffer (fbdev) để tạo /dev/fb0 hoặc /dev/fb1.
+    Cấu hình:
+    text
+
+    Device Drivers ->
+      Graphics support ->
+        [*] Frame buffer Devices ->
+          [*] Support for frame buffer devices
+        Tùy chọn: CONFIG_FB
+        Gợi ý: Chọn <M> (module) hoặc <*> (built-in).
+
+2. FBTFT Framework
+
+    Tại sao: fb_ili9341.c là một phần của FBTFT trong staging.
+    Cấu hình:
+    text
+
+    Device Drivers ->
+      Staging drivers ->
+        [*] Support for small TFT LCD display modules
+        Tùy chọn: CONFIG_FB_TFT
+        Gợi ý: Chọn <M> để tạo module fb_tft.ko (dễ debug).
+
+3. Driver ILI9341
+
+    Tại sao: Driver cụ thể cho ILI9341.
+    Cấu hình:
+    text
+
+    Device Drivers ->
+      Staging drivers ->
+        [*] Support for small TFT LCD display modules ->
+          [*] FB driver for the ILI9341 LCD Controller
+        Tùy chọn: CONFIG_FB_TFT_ILI9341
+        Gợi ý: Chọn <M> để tạo module fb_ili9341.ko.
+
+4. SPI Support
+
+    Tại sao: ILI9341 giao tiếp qua SPI, cần driver SPI cho Raspberry Pi 4 (BCM2711).
+    Cấu hình:
+    text
+
+    Device Drivers ->
+      SPI support ->
+        [*] Broadcom BCM2835 SPI controller
+        Tùy chọn: CONFIG_SPI_BCM2835
+        Gợi ý: Chọn <M>.
+
+5. Tắt driver DRM ILI9341
+
+    Tại sao: Tránh xung đột với driver DRM ILI9341 hiện tại (drivers/gpu/drm/tiny/ili9341.c).
+    Cấu hình:
+    text
+
+    Device Drivers ->
+      Graphics support ->
+        [ ] Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) ->
+          [ ] ILI9341 LCD display panel
+        Tùy chọn: CONFIG_DRM_ILI9341
+        Gợi ý: Đặt thành < > (tắt).
+
+6. Backlight Support (cho led-gpios)
+
+    Tại sao: Node DTS của bạn có led-gpios = <&gpio 17 GPIO_ACTIVE_HIGH> cho đèn nền.
+    Cấu hình:
+    text
+
+    Device Drivers ->
+      Graphics support ->
+        [*] Backlight & LCD device support ->
+          [*] Lowlevel Backlight controls ->
+            [*] Generic GPIO based Backlight Driver
+        Tùy chọn: CONFIG_BACKLIGHT_CLASS_DEVICE, CONFIG_BACKLIGHT_GPIO
+        Gợi ý: Chọn <M>.
+
+7. GPIO Support
+
+    Tại sao: Cần GPIO cho dc-gpios, reset-gpios, led-gpios.
+    Cấu hình:
+    text
+
+    Device Drivers ->
+      GPIO Support ->
+        [*] /sys/class/gpio/... (sysfs interface)
+        Tùy chọn: CONFIG_GPIO_SYSFS
+        Gợi ý: Thường đã bật (<*>) trên Raspberry Pi 4.
