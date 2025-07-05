@@ -1,20 +1,22 @@
-From 1698705da87a849a3afb55922546b377e0113a52 Mon Sep 17 00:00:00 2001
+From dc2ae731d6935feeb35190fe29e5ef448ae7e1cd Mon Sep 17 00:00:00 2001
 From: TuanTNT19 <tuantnt08@gmail.com>
-Date: Sat, 10 May 2025 20:41:15 +0700
-Subject: [PATCH] test 2
+Date: Thu, 3 Jul 2025 20:58:32 +0700
+Subject: [PATCH] Test2
 
 ---
- .../arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts | 38 +++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ .../arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts | 40 ++++++++++++++++++-
+ 1 file changed, 39 insertions(+), 1 deletion(-)
 
-diff --git a/build_dir/target-aarch64_cortex-a72_musl/linux-bcm27xx_bcm2711/linux-6.6.61/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts b/build_dir/target-aarch64_cortex-a72_musl/linux-bcm27xx_bcm2711/linux-6.6.61/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
-index 7608651f82..17eb346084 100644
---- a/build_dir/target-aarch64_cortex-a72_musl/linux-bcm27xx_bcm2711/linux-6.6.61/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
-+++ b/build_dir/target-aarch64_cortex-a72_musl/linux-bcm27xx_bcm2711/linux-6.6.61/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
+diff --git a/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts b/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
+index 7608651f8..d3ac967af 100644
+--- a/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
++++ b/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
 @@ -481,4 +481,42 @@ my-leds {
          led23-gpios = <&gpio 23 GPIO_ACTIVE_HIGH>;
          default-state = "off";
      };
+-};
+\ No newline at end of file
 +};
 +
 +&spi0 {
@@ -25,7 +27,7 @@ index 7608651f82..17eb346084 100644
 +    pinctrl-0 = <&spi0_pins &spi0_cs_pins>;
 +    cs-gpios = <&gpio 8 GPIO_ACTIVE_LOW>;
 +
-+	spidev@0 {
++    spidev@0 {
 +        compatible = "spidev";
 +        reg = <0>;
 +        status = "disabled"; // Tắt spidev@0 để nhường CS0
@@ -53,8 +55,7 @@ index 7608651f82..17eb346084 100644
 +        bgr;
 +        status = "okay";
 +    };
- };
-\ No newline at end of file
++};
 -- 
 2.25.1
 

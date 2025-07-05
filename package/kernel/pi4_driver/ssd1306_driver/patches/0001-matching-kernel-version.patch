@@ -1,0 +1,80 @@
+From 65a8bd7735d799f2ecde9cc8ceb2045dd25c7e65 Mon Sep 17 00:00:00 2001
+From: TuanTNT19 <tuantnt08@gmail.com>
+Date: Mon, 23 Jun 2025 20:08:11 +0700
+Subject: [PATCH] test
+
+---
+ ssd1306_driver.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/ssd1306_driver.c b/ssd1306_driver.c
+index c65532f..5705517 100644
+--- a/ssd1306_driver.c
++++ b/ssd1306_driver.c
+@@ -2,8 +2,8 @@
+ 
+ 
+ /* Probe & remove functions */
+-static int ssd1306_probe(struct i2c_client *client, const struct i2c_device_id *id);
+-static int ssd1306_remove( struct i2c_client *client);
++static int ssd1306_probe(struct i2c_client *client);
++static void ssd1306_remove( struct i2c_client *client);
+ 
+ static int __init Khoitao(void);
+ static void __exit Huy(void);
+@@ -28,7 +28,7 @@ char kernel_buff[50];
+ m_foo_dev mdev;
+ 
+ static const struct of_device_id ssd1306_of_match[] = {
+-    { .compatible = "ssd1306_test" },
++    { .compatible = "tnt19,ssd1306" },
+     {}
+ };
+ 
+@@ -50,7 +50,7 @@ static struct file_operations fops =
+     .release    = m_release,
+ };
+ 
+-static int ssd1306_probe(struct i2c_client *client, const struct i2c_device_id *id)
++static int ssd1306_probe(struct i2c_client *client)
+ {
+ 	//struct ssd1306_i2c_module *module;
+ 
+@@ -68,7 +68,7 @@ static int ssd1306_probe(struct i2c_client *client, const struct i2c_device_id *
+ 
+ 	ssd1306_display_init(module_ssd);
+ 	ssd1306_set_cursor(module_ssd, 3, 2);
+-	ssd1306_print_string(module_ssd, "This is Snake Game");
++	ssd1306_print_string(module_ssd, "Welcom to SSD1306");
+     ssd1306_set_cursor(module_ssd, 4, 2);
+ 	ssd1306_print_string(module_ssd, "Enjoy this moment !");
+ 	pr_info("Probe function done \n");
+@@ -77,7 +77,7 @@ static int ssd1306_probe(struct i2c_client *client, const struct i2c_device_id *
+ 	return 0;
+ }
+ 
+-static int ssd1306_remove(struct i2c_client *client)
++static void ssd1306_remove(struct i2c_client *client)
+ {
+     pr_info("Starting remove process\n");
+     ssd1306_clear_full(module_ssd);
+@@ -89,7 +89,6 @@ static int ssd1306_remove(struct i2c_client *client)
+     kfree(module_ssd);
+ 
+     pr_info("Remove process done\n");
+-    return 0;
+ }
+ 
+ 
+@@ -156,7 +155,7 @@ static int __init Khoitao(void)
+     
+     pr_info("Major : %d    Minor : %d\n", MAJOR(mdev.dev_num), MINOR(mdev.dev_num));
+     
+-    if ((mdev.m_class = class_create(THIS_MODULE, "my_classt")) == NULL){
++    if ((mdev.m_class = class_create("my_classt")) == NULL){
+         pr_err("ERROR: Can not create class\n");
+         goto rm_dev_num;
+     }
+-- 
+2.25.1
+
