@@ -4,3 +4,7 @@ config interface 'Wifi_in'
     option ipaddr '192.168.1.200'
     option netmask '255.255.255.0'
     option broadcast '192.168.1.255'  
+
+config interface 'wan'
+    option ifname 'eth0'
+    option proto 'dhcp'
