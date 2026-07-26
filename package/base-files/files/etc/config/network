@@ -1,7 +1,6 @@
 config interface 'Wifi_in'           
-    option ifname 'wlan0'  
     option proto 'static'
-    option ipaddr '192.168.1.200'
+    option ipaddr '192.168.1.42'
     option netmask '255.255.255.0'
     option broadcast '192.168.1.255'  
 
