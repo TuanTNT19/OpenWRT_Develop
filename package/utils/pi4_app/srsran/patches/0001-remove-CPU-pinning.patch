@@ -1,0 +1,29 @@
+From be61d836836da0d8959ca84cc3d24ae5f7715371 Mon Sep 17 00:00:00 2001
+From: TuanTNT19 <tuantnt08@gmail.com>
+Date: Sun, 5 Apr 2026 16:58:09 +0700
+Subject: [PATCH] remove CPU pinning
+
+---
+ lib/src/common/threads.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/lib/src/common/threads.c b/lib/src/common/threads.c
+index 34c0a01a1..95cd7e7b2 100644
+--- a/lib/src/common/threads.c
++++ b/lib/src/common/threads.c
+@@ -142,9 +142,9 @@ bool threads_new_rt_cpu(pthread_t* thread, void* (*start_routine)(void*), void*
+       CPU_SET((size_t)cpu, &cpuset);
+     }
+ 
+-    if (pthread_attr_setaffinity_np(&attr, sizeof(cpu_set_t), &cpuset)) {
+-      perror("pthread_attr_setaffinity_np");
+-    }
++    // if (pthread_attr_setaffinity_np(&attr, sizeof(cpu_set_t), &cpuset)) {
++    //   perror("pthread_attr_setaffinity_np");
++    // }
+   }
+ 
+ // TSAN seems to have issues with thread attributes when running as normal user, disable them in that case
+-- 
+2.25.1
+

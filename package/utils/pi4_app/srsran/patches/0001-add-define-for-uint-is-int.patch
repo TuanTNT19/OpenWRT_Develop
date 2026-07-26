@@ -1,0 +1,93 @@
+From e147d14e61f588ef68ae19fc84ad36c78d106a8b Mon Sep 17 00:00:00 2001
+From: TuanTNT19 <tuantnt08@gmail.com>
+Date: Sun, 5 Apr 2026 19:41:15 +0700
+Subject: [PATCH] add define for uint is int
+
+---
+ srsepc/hdr/hss/hss.h                       | 1 +
+ srsepc/src/mme/nas.cc                      | 2 ++
+ srsue/src/stack/rrc/rrc.cc                 | 2 ++
+ srsue/src/stack/rrc_nr/rrc_nr.cc           | 2 ++
+ srsue/src/stack/upper/pcsc_usim.cc         | 1 +
+ srsue/src/stack/upper/tft_packet_filter.cc | 2 ++
+ 6 files changed, 10 insertions(+)
+
+diff --git a/srsepc/hdr/hss/hss.h b/srsepc/hdr/hss/hss.h
+index 356ef398a..434ddb535 100644
+--- a/srsepc/hdr/hss/hss.h
++++ b/srsepc/hdr/hss/hss.h
+@@ -40,6 +40,7 @@
+ #define LTE_FDD_ENB_IND_HE_MASK 0x1FUL
+ #define LTE_FDD_ENB_IND_HE_MAX_VALUE 31
+ #define LTE_FDD_ENB_SEQ_HE_MAX_VALUE 0x07FFFFFFFFFFUL
++typedef unsigned int uint;
+ 
+ namespace srsepc {
+ 
+diff --git a/srsepc/src/mme/nas.cc b/srsepc/src/mme/nas.cc
+index 7e9834d06..1a5531b52 100644
+--- a/srsepc/src/mme/nas.cc
++++ b/srsepc/src/mme/nas.cc
+@@ -29,6 +29,8 @@
+ #include <sys/timerfd.h>
+ #include <time.h>
+ 
++typedef unsigned int uint;
++
+ namespace srsepc {
+ 
+ nas::nas(const nas_init_t& args, const nas_if_t& itf) :
+diff --git a/srsue/src/stack/rrc/rrc.cc b/srsue/src/stack/rrc/rrc.cc
+index 5d5ab8d6e..13605c505 100644
+--- a/srsue/src/stack/rrc/rrc.cc
++++ b/srsue/src/stack/rrc/rrc.cc
+@@ -48,6 +48,8 @@ using namespace asn1::rrc;
+ using srsran::lte_srb;
+ using srsran::srb_to_lcid;
+ 
++typedef unsigned int uint;
++
+ namespace srsue {
+ 
+ const static uint32_t NOF_REQUIRED_SIBS                = 4;
+diff --git a/srsue/src/stack/rrc_nr/rrc_nr.cc b/srsue/src/stack/rrc_nr/rrc_nr.cc
+index 8727fa985..7e42534a3 100644
+--- a/srsue/src/stack/rrc_nr/rrc_nr.cc
++++ b/srsue/src/stack/rrc_nr/rrc_nr.cc
+@@ -32,6 +32,8 @@ using namespace asn1::rrc_nr;
+ using namespace asn1;
+ using namespace srsran;
+ 
++typedef unsigned int uint;
++
+ namespace srsue {
+ 
+ const static char* rrc_nr_state_text[] = {"IDLE", "CONNECTED", "CONNECTED-INACTIVE"};
+diff --git a/srsue/src/stack/upper/pcsc_usim.cc b/srsue/src/stack/upper/pcsc_usim.cc
+index cc355c913..9e29cf2a4 100644
+--- a/srsue/src/stack/upper/pcsc_usim.cc
++++ b/srsue/src/stack/upper/pcsc_usim.cc
+@@ -27,6 +27,7 @@
+ #include "string.h"
+ 
+ #define CHECK_SIM_PIN 0
++typedef unsigned int uint;
+ 
+ using namespace srsran;
+ 
+diff --git a/srsue/src/stack/upper/tft_packet_filter.cc b/srsue/src/stack/upper/tft_packet_filter.cc
+index 72664fa87..39e18593a 100644
+--- a/srsue/src/stack/upper/tft_packet_filter.cc
++++ b/srsue/src/stack/upper/tft_packet_filter.cc
+@@ -30,6 +30,8 @@ extern "C" {
+ #include <linux/tcp.h>
+ #include <linux/udp.h>
+ 
++typedef unsigned int uint;
++
+ namespace srsue {
+ 
+ tft_packet_filter_t::tft_packet_filter_t(uint8_t                                eps_bearer_id_,
+-- 
+2.25.1
+

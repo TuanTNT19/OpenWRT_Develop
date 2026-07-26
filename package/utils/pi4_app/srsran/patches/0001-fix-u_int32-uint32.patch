@@ -1,0 +1,25 @@
+From d0a1707f20fab277f698aac4a1eca0feed9c4bf1 Mon Sep 17 00:00:00 2001
+From: TuanTNT19 <tuantnt08@gmail.com>
+Date: Sun, 5 Apr 2026 19:48:57 +0700
+Subject: [PATCH] fix u_int32 -> uint32
+
+---
+ srsue/src/stack/upper/nas.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/srsue/src/stack/upper/nas.cc b/srsue/src/stack/upper/nas.cc
+index 18ba9bf49..e9832f174 100644
+--- a/srsue/src/stack/upper/nas.cc
++++ b/srsue/src/stack/upper/nas.cc
+@@ -1550,7 +1550,7 @@ void nas::gen_attach_request(srsran::unique_byte_buffer_t& msg)
+ 
+   attach_req.eps_attach_type = LIBLTE_MME_EPS_ATTACH_TYPE_EPS_ATTACH;
+ 
+-  for (u_int32_t i = 0; i < 8; i++) {
++  for (uint32_t i = 0; i < 8; i++) {
+     attach_req.ue_network_cap.eea[i] = eea_caps[i];
+     attach_req.ue_network_cap.eia[i] = eia_caps[i];
+   }
+-- 
+2.25.1
+

@@ -1,0 +1,25 @@
+From 188d6688816de00e7ef28d51128b022f8d698b3b Mon Sep 17 00:00:00 2001
+From: TuanTNT19 <tuantnt08@gmail.com>
+Date: Mon, 6 Apr 2026 20:05:58 +0700
+Subject: [PATCH] crash_handle: remove srsran_backtrace_print
+
+---
+ lib/src/common/crash_handler.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/src/common/crash_handler.cc b/lib/src/common/crash_handler.cc
+index 054f5f4e7..f405cf21f 100644
+--- a/lib/src/common/crash_handler.cc
++++ b/lib/src/common/crash_handler.cc
+@@ -58,7 +58,7 @@ static void crash_handler(int sig)
+   }
+   fprintf(f, "' version=%s signal=%d date='%s' ---\n", SRSRAN_VERSION_STRING, sig, strdate);
+ 
+-  srsran_backtrace_print(f);
++//  srsran_backtrace_print(f);
+ 
+   fprintf(f, "srsRAN crashed. Please send this backtrace to the developers ...\n");
+ 
+-- 
+2.25.1
+

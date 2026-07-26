@@ -1,0 +1,24 @@
+From 3144d36b5768fe2f0afe2dc49004630a9aa8484b Mon Sep 17 00:00:00 2001
+From: TuanTNT19 <tuantnt08@gmail.com>
+Date: Sun, 5 Apr 2026 10:43:18 +0700
+Subject: [PATCH] netsource: add lib
+
+---
+ lib/include/srsran/phy/io/netsource.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/lib/include/srsran/phy/io/netsource.h b/lib/include/srsran/phy/io/netsource.h
+index 9d01bfd96..a7e01117f 100644
+--- a/lib/include/srsran/phy/io/netsource.h
++++ b/lib/include/srsran/phy/io/netsource.h
+@@ -37,6 +37,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <sys/socket.h>
++#include <sys/time.h>
+ 
+ #include "srsran/config.h"
+ 
+-- 
+2.25.1
+

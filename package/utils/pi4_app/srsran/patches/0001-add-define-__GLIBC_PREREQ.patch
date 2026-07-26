@@ -1,0 +1,27 @@
+From 61943ee62c55ba5892c6aabd1ab523ce7257f874 Mon Sep 17 00:00:00 2001
+From: TuanTNT19 <tuantnt08@gmail.com>
+Date: Sun, 5 Apr 2026 19:57:11 +0700
+Subject: [PATCH] add define __GLIBC_PREREQ
+
+---
+ lib/include/srsran/upper/ipv6.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/lib/include/srsran/upper/ipv6.h b/lib/include/srsran/upper/ipv6.h
+index 2a28a2d40..acd8b303c 100644
+--- a/lib/include/srsran/upper/ipv6.h
++++ b/lib/include/srsran/upper/ipv6.h
+@@ -24,6 +24,10 @@
+ 
+ #include <linux/in6.h>
+ 
++#ifndef __GLIBC_PREREQ
++#define __GLIBC_PREREQ(x, y) 0
++#endif
++
+ // as of glibc 2.19, the IPv6 issue seems to be fixed https://sourceware.org/bugzilla/show_bug.cgi?id=15850
+ #if __GLIBC_PREREQ(2, 19)
+ #include <linux/ipv6.h>
+-- 
+2.25.1
+

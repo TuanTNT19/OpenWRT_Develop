@@ -1,0 +1,25 @@
+From b9a4298045d9432e38d5ec8238f044fe5e8744b0 Mon Sep 17 00:00:00 2001
+From: TuanTNT19 <tuantnt08@gmail.com>
+Date: Sun, 5 Apr 2026 16:51:39 +0700
+Subject: [PATCH] redefine uint
+
+---
+ lib/include/srsran/common/string_helpers.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/lib/include/srsran/common/string_helpers.h b/lib/include/srsran/common/string_helpers.h
+index 12f6df9fc..c64765931 100644
+--- a/lib/include/srsran/common/string_helpers.h
++++ b/lib/include/srsran/common/string_helpers.h
+@@ -30,6 +30,8 @@
+ #include <string>
+ #include <vector>
+ 
++typedef unsigned int uint;
++
+ namespace srsran {
+ 
+ /**
+-- 
+2.25.1
+

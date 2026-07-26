@@ -1,0 +1,39 @@
+From 54f2545e0b73915f27c7a02e3791fe5e5e623d0f Mon Sep 17 00:00:00 2001
+From: TuanTNT19 <tuantnt08@gmail.com>
+Date: Sun, 5 Apr 2026 19:27:48 +0700
+Subject: [PATCH] pdu: add network byte order lib
+
+---
+ lib/src/mac/mac_sch_pdu_nr.cc | 2 ++
+ lib/src/mac/pdu.cc            | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/lib/src/mac/mac_sch_pdu_nr.cc b/lib/src/mac/mac_sch_pdu_nr.cc
+index 4ecc7bfbf..1ee424a3e 100644
+--- a/lib/src/mac/mac_sch_pdu_nr.cc
++++ b/lib/src/mac/mac_sch_pdu_nr.cc
+@@ -20,6 +20,8 @@
+  */
+ 
+ #include "srsran/mac/mac_sch_pdu_nr.h"
++#include <endian.h>
++#include <byteswap.h>
+ 
+ namespace srsran {
+ 
+diff --git a/lib/src/mac/pdu.cc b/lib/src/mac/pdu.cc
+index 12c4aa0bd..ed1814534 100644
+--- a/lib/src/mac/pdu.cc
++++ b/lib/src/mac/pdu.cc
+@@ -23,6 +23,8 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <strings.h>
++#include <endian.h>
++#include <byteswap.h>
+ 
+ #include "srsran/common/standard_streams.h"
+ #include "srsran/mac/pdu.h"
+-- 
+2.25.1
+

@@ -1,0 +1,73 @@
+From 96f5ac388cb8bdf134bf5fe4019ae5a628d421aa Mon Sep 17 00:00:00 2001
+From: TuanTNT19 <tuantnt08@gmail.com>
+Date: Sun, 5 Apr 2026 16:29:29 +0700
+Subject: [PATCH] remove backtrace.c
+
+---
+ lib/src/common/CMakeLists.txt |  1 -
+ lib/src/common/backtrace.c    | 41 -----------------------------------
+ 2 files changed, 42 deletions(-)
+ delete mode 100644 lib/src/common/backtrace.c
+
+diff --git a/lib/src/common/CMakeLists.txt b/lib/src/common/CMakeLists.txt
+index 99200cf1e..bccc5fa62 100644
+--- a/lib/src/common/CMakeLists.txt
++++ b/lib/src/common/CMakeLists.txt
+@@ -20,7 +20,6 @@
+ 
+ set(SOURCES arch_select.cc
+             enb_events.cc
+-            backtrace.c
+             byte_buffer.cc
+             band_helper.cc
+             bearer_manager.cc
+diff --git a/lib/src/common/backtrace.c b/lib/src/common/backtrace.c
+deleted file mode 100644
+index 9e94531b1..000000000
+--- a/lib/src/common/backtrace.c
++++ /dev/null
+@@ -1,41 +0,0 @@
+-/**
+- * Copyright 2013-2023 Software Radio Systems Limited
+- *
+- * This file is part of srsRAN.
+- *
+- * srsRAN is free software: you can redistribute it and/or modify
+- * it under the terms of the GNU Affero General Public License as
+- * published by the Free Software Foundation, either version 3 of
+- * the License, or (at your option) any later version.
+- *
+- * srsRAN is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU Affero General Public License for more details.
+- *
+- * A copy of the GNU Affero General Public License can be found in
+- * the LICENSE file in the top-level directory of this distribution
+- * and at http://www.gnu.org/licenses/.
+- *
+- */
+-#include <execinfo.h>
+-#include <stdio.h>
+-#include <stdlib.h>
+-
+-void srsran_backtrace_print(FILE* f)
+-{
+-  void* array[128] = {};
+-  int   size       = 0;
+-
+-  if (f) {
+-    // Get all stack traces
+-    size = backtrace(array, 128);
+-
+-    char** symbols = backtrace_symbols(array, size);
+-
+-    for (int i = 1; i < size; i++) {
+-      fprintf(f, "\t%s\n", symbols[i]);
+-    }
+-    free(symbols);
+-  }
+-}
+-- 
+2.25.1
+
