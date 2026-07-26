@@ -35,6 +35,29 @@ define Build/boot-common
 	mcopy -i $@.boot $(DTS_DIR)/overlays/README ::/overlays/
 endef
 
+define Build/boot-common-pi4-uboot
+	echo $(IMG_PART_SIGNATURE) > $@-partuuid.txt
+	sed \
+		-e 's#@ROOT@#PARTUUID=$(IMG_PART_SIGNATURE)-02#g' \
+		cmdline.txt > $@-cmdline.txt
+
+	rm -f $@.boot
+	mkfs.fat -n boot -C $@.boot $(FAT32_BLOCKS)
+	mcopy -i $@.boot $(KDIR)/COPYING.linux ::
+	mcopy -i $@.boot $(KDIR)/LICENCE.broadcom ::
+	mcopy -i $@.boot $@-cmdline.txt ::cmdline.txt
+	mcopy -i $@.boot config-pi4-uboot.txt ::config.txt
+	mcopy -i $@.boot distroconfig.txt ::
+	mcopy -i $@.boot $@-partuuid.txt ::partuuid.txt
+	mcopy -i $@.boot $(IMAGE_KERNEL) ::$(KERNEL_IMG)
+	mcopy -i $@.boot $(STAGING_DIR_IMAGE)/u-boot.bin ::u-boot.bin
+	mcopy -i $@.boot $(STAGING_DIR_IMAGE)/bcm2711-rpi-4-b_owrt.dtb ::bcm2711-rpi-4-b_owrt.dtb
+	$(foreach dts,$(shell echo $(DEVICE_DTS)),mcopy -i $@.boot $(DTS_DIR)/$(dts).dtb ::;)
+	mmd -i $@.boot ::/overlays
+	mcopy -i $@.boot $(DTS_DIR)/overlays/*.dtbo ::/overlays/
+	mcopy -i $@.boot $(DTS_DIR)/overlays/README ::/overlays/
+endef
+
 define Build/boot-2708
 	mcopy -i $@.boot $(KDIR)/bootcode.bin ::
 	mcopy -i $@.boot $(KDIR)/start.elf ::
@@ -207,6 +230,31 @@ define Device/rpi-5
 endef
 ifeq ($(SUBTARGET),bcm2712)
   TARGET_DEVICES += rpi-5
+endif
+
+define Device/rpi-4-uboot
+  DEVICE_MODEL := 4B/400/CM4
+  DEVICE_VARIANT := (64bit)
+  KERNEL_IMG := kernel8.img
+  DEVICE_DTS := \
+	broadcom/bcm2711-rpi-400 \
+	broadcom/bcm2711-rpi-4-b \
+	broadcom/bcm2711-rpi-cm4
+  SUPPORTED_DEVICES := \
+	raspberrypi,400 \
+	raspberrypi,4-compute-module \
+	raspberrypi,4-model-b
+  DEVICE_PACKAGES := \
+	cypress-firmware-43455-sdio \
+	brcmfmac-nvram-43455-sdio \
+	kmod-brcmfmac wpad-basic-mbedtls \
+	kmod-usb-net-lan78xx \
+	kmod-r8169
+  IMAGE/sysupgrade.img.gz := boot-common-pi4-uboot | boot-2711 | sdcard-img | gzip | append-metadata
+  IMAGE/factory.img.gz := boot-common-pi4-uboot | boot-2711 | sdcard-img | gzip
+endef
+ifeq ($(SUBTARGET),bcm2711)
+  TARGET_DEVICES += rpi-4-uboot
 endif
 
 $(eval $(call BuildImage))
