@@ -1,14 +1,15 @@
-From 65a8bd7735d799f2ecde9cc8ceb2045dd25c7e65 Mon Sep 17 00:00:00 2001
+From ecd8bff9a5c4e7dc5ca8f0d8f924d5e6321d07ef Mon Sep 17 00:00:00 2001
 From: TuanTNT19 <tuantnt08@gmail.com>
-Date: Mon, 23 Jun 2025 20:08:11 +0700
+Date: Sat, 4 Jul 2026 20:00:14 +0700
 Subject: [PATCH] test
 
 ---
- ssd1306_driver.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ ssd1306_driver.c | 21 ++++++++-------------
+ ssd1306_lib.c    |  9 ---------
+ 2 files changed, 8 insertions(+), 22 deletions(-)
 
 diff --git a/ssd1306_driver.c b/ssd1306_driver.c
-index c65532f..5705517 100644
+index c65532f..b064b45 100644
 --- a/ssd1306_driver.c
 +++ b/ssd1306_driver.c
 @@ -2,8 +2,8 @@
@@ -40,16 +41,19 @@ index c65532f..5705517 100644
  {
  	//struct ssd1306_i2c_module *module;
  
-@@ -68,7 +68,7 @@ static int ssd1306_probe(struct i2c_client *client, const struct i2c_device_id *
+@@ -67,17 +67,17 @@ static int ssd1306_probe(struct i2c_client *client, const struct i2c_device_id *
+ 	module_ssd->font_size = SSD1306_DEF_FONT_SIZE;
  
  	ssd1306_display_init(module_ssd);
++    ssd1306_clear_full(module_ssd);
  	ssd1306_set_cursor(module_ssd, 3, 2);
 -	ssd1306_print_string(module_ssd, "This is Snake Game");
-+	ssd1306_print_string(module_ssd, "Welcom to SSD1306");
++	ssd1306_print_string(module_ssd, "Welcomm to SSD1306");
      ssd1306_set_cursor(module_ssd, 4, 2);
  	ssd1306_print_string(module_ssd, "Enjoy this moment !");
  	pr_info("Probe function done \n");
-@@ -77,7 +77,7 @@ static int ssd1306_probe(struct i2c_client *client, const struct i2c_device_id *
+ 
+-
  	return 0;
  }
  
@@ -58,15 +62,35 @@ index c65532f..5705517 100644
  {
      pr_info("Starting remove process\n");
      ssd1306_clear_full(module_ssd);
-@@ -89,7 +89,6 @@ static int ssd1306_remove(struct i2c_client *client)
+@@ -89,10 +89,8 @@ static int ssd1306_remove(struct i2c_client *client)
      kfree(module_ssd);
  
      pr_info("Remove process done\n");
 -    return 0;
  }
  
+-
+ /* This function will be called when we open the Device file */
+ static int m_open(struct inode *inode, struct file *file)
+ {
+@@ -107,7 +105,6 @@ static int m_release(struct inode *inode, struct file *file)
+     return 0;
+ }
  
-@@ -156,7 +155,7 @@ static int __init Khoitao(void)
+-
+ /* This function will be called when we write the Device file */
+ static ssize_t m_write(struct file *filp, const char __user *user_buf, size_t size, loff_t *offset)
+ {
+@@ -143,8 +140,6 @@ static ssize_t m_write(struct file *filp, const char __user *user_buf, size_t si
+     return size;
+ }
+ 
+-
+-
+ static int __init Khoitao(void)
+ {
+     if (alloc_chrdev_region(&mdev.dev_num, 0, 1, "my-cdevt"))
+@@ -156,7 +151,7 @@ static int __init Khoitao(void)
      
      pr_info("Major : %d    Minor : %d\n", MAJOR(mdev.dev_num), MINOR(mdev.dev_num));
      
@@ -75,6 +99,26 @@ index c65532f..5705517 100644
          pr_err("ERROR: Can not create class\n");
          goto rm_dev_num;
      }
+diff --git a/ssd1306_lib.c b/ssd1306_lib.c
+index 0176b84..710378c 100644
+--- a/ssd1306_lib.c
++++ b/ssd1306_lib.c
+@@ -228,15 +228,6 @@ int ssd1306_display_init(struct ssd1306_i2c_module *module)
+     ssd1306_write(module, true, 0x14); // Enable charge dump during display on
+ 	ssd1306_write(module, true, 0xAF); // Display ON in normal mode
+ 	ssd1306_set_cursor(module, 0, 0);
+-	ssd1306_print_string(module, "WELCOME TO TUANTNT19\n");
+-	ssd1306_set_cursor(module, 1, 0);
+-	ssd1306_print_string(module, "Loading ");
+-	int i;
+-	for (i = 0; i<3; i++)
+-	{
+-		ssd1306_print_string(module, ".");
+-		msleep(500);
+-	}
+ 	ssd1306_clear_full(module);
+ 
+ 	return 0;
 -- 
 2.25.1
 
